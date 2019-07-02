@@ -7,13 +7,13 @@ import {CanvasWhiteboardComponent} from 'ng2-canvas-whiteboard';
   styleUrls: ['./main-screen.component.css']
 })
 export class MainScreenComponent implements OnInit {
-  @ViewChild('canvasWhiteboard',{}) canvasWhiteboard: CanvasWhiteboardComponent;
+  @ViewChild('canvasWhiteboard', {static: false}) canvasWhiteboard: CanvasWhiteboardComponent;
 
   ngOnInit(){
 
   }
 
   onSubmit(){
-    this.canvasWhiteboard.downloadCanvasImage("image/png", "customFileName");
+    this.canvasWhiteboard.downloadCanvasImage("image/png", "snapshot.jpg");
   }
 }
