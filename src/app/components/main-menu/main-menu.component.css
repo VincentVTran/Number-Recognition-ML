@@ -1,0 +1,14 @@
+.menuStyling {
+    margin-top: 0;
+    height: 10%;
+    width: 100%;
+    background-color: rgb(255, 158, 214);
+    box-shadow: 0px 2px 5px rgba(0,0,0,.5);
+    text-align: center;
+}
+
+.mainHeading {
+    display: inline;
+}
+.buttonStyling {
+}
