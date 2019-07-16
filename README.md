@@ -1,3 +1,9 @@
+## Running the application
+
+Running angular application- `npm run ngApp`
+Running neural network- `npm run ml`
+Running both- `npm start`
+
 # MLRecognitionApp
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.2.3.
