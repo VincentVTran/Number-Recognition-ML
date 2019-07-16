@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "ml": "node ./recognitionApp/main.js",
-    "start": "ng serve",
+    "ml": "node ./recognitionApp/neuralNetwork.js",
+    "start": "ng serve --open && node ./recognitionApp/neuralNetwork.js",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
