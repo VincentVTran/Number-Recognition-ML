@@ -1,8 +1,8 @@
 ## Running the application
 
-Running angular application- `npm run ngApp`
-Running neural network- `npm run ml`
-Running both- `npm start`
+Running angular application- `npm run ngApp` <br>
+Running neural network- `npm run ml` <br>
+Running both- `npm start` <br>
 
 # MLRecognitionApp
 
