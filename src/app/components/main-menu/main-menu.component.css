@@ -1,4 +1,4 @@
-.menuStyling {
+.titleStyling {
     margin-top: 0;
     height: 10%;
     width: 100%;
@@ -6,9 +6,20 @@
     box-shadow: 0px 2px 5px rgba(0,0,0,.5);
     text-align: center;
 }
-
-.mainHeading {
+.menuStyling {
+    margin-top: 0;
+    background-color: rgb(245, 186, 220);
+    box-shadow: 0px 2px 5px rgba(0,0,0,.5);
+    display:flex;
+}
+.titleTextStyle {
     display: inline;
+}
+
+.menuTextStyle {
+    text-align: center;
+    margin-left: 15px;
+    color: rgb(58, 58, 58);
 }
 .buttonStyling {
 }
