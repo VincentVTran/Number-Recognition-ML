@@ -1,19 +1,21 @@
 var processImage = async function(imageURL) {
     const jimp = require('jimp');
     const imagePath = imageURL; //Image processing
-    var dataInput = [];
+    var dataBitmap = [];
     await jimp.read(imagePath).then(result => {
         result.grayscale;
-        result.quality(30);
-        result.resize(100,100);
-        dataInput = result.bitmap.data.toJSON().data;
+        result.resize(28,28);
+        dataBitmap = result.bitmap.data.toJSON().data; 
+        
+        //result.write('processedData.jpg'); //Saves image
+
         // for(let i of dataInput){
         //     if(i !== 255){
         //         console.log(i);
         //     }
         // }
     });
-    return dataInput
+    return dataBitmap;
 }
 
 module.exports.processImage = processImage;
