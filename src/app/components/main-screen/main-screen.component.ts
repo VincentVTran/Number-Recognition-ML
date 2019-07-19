@@ -15,7 +15,8 @@ export class MainScreenComponent implements OnInit {
   }
 
   onSubmit(){
-    this.canvasWhiteboard.downloadCanvasImage("image/png","", "result");
+    this.canvasWhiteboard.downloadCanvasImage("image/png","./result", "./result");
     this.canvasWhiteboard.clearCanvas();
+    //console.log(this.canvasWhiteboard.context);
   }
 }

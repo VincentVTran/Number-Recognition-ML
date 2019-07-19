@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "ml": "node ./recognitionApp/neuralNetwork.js",
+    "ml": "node ./recognitionApp/main.js",
     "start": "ng serve --open && node ./recognitionApp/neuralNetwork.js",
     "build": "ng build",
     "test": "ng test",

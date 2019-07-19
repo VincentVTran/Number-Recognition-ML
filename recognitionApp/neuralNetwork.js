@@ -1,9 +1,8 @@
 const tf = require('@tensorflow/tfjs-node');
 const fs = require("fs");
-var express = require('express')
-const imageDriver = require('./processImage');
 
 var network;
+//_____________Initializing Model___________________
 
 function createNeuralNetwork(){
     //Creating the neural network
@@ -61,34 +60,23 @@ function loadPreviousData(filePath){
     network = tf.loadLayersModel(filePath);
 }
 
-const file = './saved-model';
-if(fs.existsSync(file)) {
-    console.log("Loaded data");
-    loadPreviousData('file://./saved-model');
-}
-else {
-    createNeuralNetwork();
+
+
+async function InitializingProperModel(){
+    const file = './saved-model';
+    if(fs.existsSync(file)) {        
+        await loadPreviousData('file://./saved-model/model.json');
+        // await console.log(network);
+        await console.log("Loaded data");
+    }
+    else {
+        await createNeuralNetwork();
+    }
+    return network;
 }
 
-console.log(network);
 
-// var imagePath = 'C:/Users/jisavt5/Downloads/result.png';
-// var originalInputSize = 0;
-// imageDriver.processImage(imagePath).then(result => {
-//     originalInputSize = result.length
-//     console.log(originalInputSize);
-// });
 
 //network.save('file://./saved-model');
 
-
-
-//ExpressJS 
-// var app = express();
-// const port = 3000;
-
-// app.get('/', function (req, res) {
-//     res.send('root')
-// });
-
-// app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+module.exports.InitializingProperModel = InitializingProperModel;
