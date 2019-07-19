@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild} from '@angular/core';
 import {CanvasWhiteboardComponent} from 'ng2-canvas-whiteboard';
-import { browser } from 'protractor';
 
 @Component({
   selector: 'app-main-screen',
@@ -15,7 +14,7 @@ export class MainScreenComponent implements OnInit {
   }
 
   onSubmit(){
-    this.canvasWhiteboard.downloadCanvasImage("image/png","./result", "./result");
+    this.canvasWhiteboard.downloadCanvasImage("image/png","","result")
     this.canvasWhiteboard.clearCanvas();
     //console.log(this.canvasWhiteboard.context);
   }
