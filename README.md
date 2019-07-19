@@ -2,7 +2,7 @@
 
 Running angular application- `npm run ngApp` <br>
 Running neural network- `npm run ml` <br>
-Running both- `npm start` <br>
+Running both- `npm run start` <br>
 
 # MLRecognitionApp
 
