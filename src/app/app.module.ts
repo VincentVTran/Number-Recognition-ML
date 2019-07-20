@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http'
 import { MatMenuModule, MatButtonModule, MatIconModule,MatCardModule,MatFormFieldModule,MatSelectModule} from '@angular/material';
 
 import { MainMenuComponent } from './components/main-menu/main-menu.component';
@@ -24,6 +25,7 @@ import { CustomDetailComponent } from './components/custom-detail/custom-detail.
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    HttpClientModule,
 
     //Angular Materials
     MatButtonModule,

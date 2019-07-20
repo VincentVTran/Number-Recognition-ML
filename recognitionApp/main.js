@@ -8,8 +8,12 @@ var app = express();
 const port = 3000;
 
 const networkModel = neuralNetwork.neuralNetworkInstance;
-var imagePath = process.env.USERPROFILE + "/Downloads/result.png";
-var training_file = {};
+//var imagePath = process.env.USERPROFILE + "/Downloads/result.png"; //Window Compatible
+var imagePath = process.env['HOME'] + "/Downloads/result.png"; //Mac OS
+
+var training_file = {
+    training_set : []
+};
 
 fs.readFile('./recognitionApp/trainingData.json','utf8', (err, data) => {
     if (err){
@@ -20,9 +24,15 @@ fs.readFile('./recognitionApp/trainingData.json','utf8', (err, data) => {
     }
 });
 
-app.put('/predict', async function(req, res) {
-    const bitMap = await imageDriver.processImage(imagePath);
-    fs.writeFile('./recognitionApp/trainingData.json',JSON.stringify(training_file), 'utf8', (err, data) => {console.log("Worked")});
+app.post('/predict', async function(req, res) {
+    const bitMap = await imageDriver.processImage(imagePath); //Current Bitmap
+    const correctValue = req.body; //Expected Value 
+
+    const prepData = {bitMap,correctValue}
+    training_file.training_set.push(prepData);
+    console.log(training_file.training_set);
+    await fs.writeFile('./recognitionApp/trainingData.json',JSON.stringify(training_file), 'utf8', (err, data) => {console.log("Worked")});
+    res.send();
 });
 
 app.get('/save', function (req, res) {
@@ -50,7 +60,7 @@ app.get('/testManipulationOfInstance', function (req, res) {
     console.log("Previous Global Variable Value: "+networkModel.testNum);
     networkModel.testNum = Math.random();
     console.log("New Global Variable Value: "+networkModel.testNum);
-    res.send('idk');
+    res.send('Testing manipulation of class variable in console');
 });
 
 app.listen(port, () => console.log(`Neural Network listening on port ${port}!`));
