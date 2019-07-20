@@ -1,10 +1,16 @@
-var express = require('express')
-var neuralNetwork = require('./neuralNetwork');
+var express = require('express');
 var fs = require('fs');
+var bodyParser = require('body-parser');
+var cors = require('cors');
+
+var neuralNetwork = require('./neuralNetwork');
 var imageDriver = require('./processImage');
 
 //ExpressJS Controller
 var app = express();
+app.use(bodyParser.json());
+app.use(cors());
+//app.use(bodyParser.urlencoded({ extended: false }));
 const port = 3000;
 
 const networkModel = neuralNetwork.neuralNetworkInstance;
@@ -24,15 +30,19 @@ fs.readFile('./recognitionApp/trainingData.json','utf8', (err, data) => {
     }
 });
 
-app.post('/predict', async function(req, res) {
+app.post('/predict',async function(req, res) {
     const bitMap = await imageDriver.processImage(imagePath); //Current Bitmap
     const correctValue = req.body; //Expected Value 
+    //console.log(req.body.expectedValue);
+    const prepData = {data: bitMap, expected: correctValue.expectedValue}
 
-    const prepData = {bitMap,correctValue}
-    training_file.training_set.push(prepData);
-    console.log(training_file.training_set);
-    await fs.writeFile('./recognitionApp/trainingData.json',JSON.stringify(training_file), 'utf8', (err, data) => {console.log("Worked")});
-    res.send();
+    training_file.training_set.push(prepData); //Adding onto trainingData JSON
+
+    //console.log(training_file.training_set);
+    await fs.writeFile('./recognitionApp/trainingData.json',JSON.stringify(training_file), 'utf8', (err, data) => {console.log("Worked")}); //Adds data to the JSON file
+    
+    fs.unlink(imagePath,(success)=> console.log(prepData)); //Deletes file
+    res.send("Predicted Score");
 });
 
 app.get('/save', function (req, res) {

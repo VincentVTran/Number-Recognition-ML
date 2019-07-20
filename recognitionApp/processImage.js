@@ -4,7 +4,7 @@ var processImage = async function(imageURL) {
     var dataBitmap = [];
     await jimp.read(imagePath).then(result => {
         result.grayscale;
-        result.resize(28,28);
+        result.resize(16,16);
         dataBitmap = result.bitmap.data.toJSON().data; 
         
         //result.write('processedData.jpg'); //Saves image

@@ -10,8 +10,8 @@ export class DataService {
   constructor(private http: HttpClient) {
   }
 
-  retrievePrediction(expectedNumber){
+  retrievePrediction(body):Observable<any>{
     console.log("Sending expected number; Retrieving predicted number")
-    return this.http.post<any>(this.baseURL+"/predict",expectedNumber);
+    return this.http.post<any>(this.baseURL+"/predict",body);
   }
 }

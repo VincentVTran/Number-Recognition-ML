@@ -24,19 +24,24 @@ export class MainScreenComponent implements OnInit {
 
   onSubmit(){
     this.canvasWhiteboard.downloadCanvasImage("image/png","","result")
-    this.canvasWhiteboard.clearCanvas();
     this.buttonHidden = true;
     this.correctHidden = false;
     //console.log(this.canvasWhiteboard.context);
   }
 
   train(){
-    this.dataService.retrievePrediction(this.predictedNumber).subscribe(
+    let requestBody = {
+      expectedValue : this.correctNumber
+    }
+
+    this.dataService.retrievePrediction(requestBody).subscribe(
       (data) => this.predictedNumber = data,
       (err) => console.log(err),
       () => console.log("Predicted #: " + this.predictedNumber)
     );
     
+    this.canvasWhiteboard.clearCanvas();
+    console.log("Inside");
     this.buttonHidden = false;
     this.correctHidden = true;
     //console.log(this.canvasWhiteboard.context);
