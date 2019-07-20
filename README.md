@@ -19,9 +19,11 @@ The application currently uses Angular framework for the front-end user interfac
 - [x] Convert into bitmap, then to a tensor.
 - [x] Configure the neural network with proper back-propogation settings.
 - [ ] Display loss value.
+- [ ] Add a progress bar to display epoch progression.
 - [ ] Add more training data into the JSON file.
 - [ ] Add a saving function to save the model.
 - [ ] Display the prediction in the angular webpage.
+- [ ] Finish about page.
 
 
 ## Build
