@@ -10,7 +10,7 @@ Run both applications- `npm run start` <br>
 
 ## MLRecognitionApp
 
-The application currently uses Angular framework for the front-end user interface and ExpressJS as the back-end stand-alone application. Tensorflow was the primary framework used to build the neural network.
+The application currently uses Angular for the front-end user interface and ExpressJS as the back-end stand-alone application. Tensorflow was the primary framework used to build the neural network.
 
 
 ## Checklist
