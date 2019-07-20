@@ -29,15 +29,17 @@ export class MainScreenComponent implements OnInit {
     //console.log(this.canvasWhiteboard.context);
   }
 
+  pretrain(){
+    this.dataService.trainingSet().subscribe();
+  }
+
   train(){
     let requestBody = {
       expectedValue : this.correctNumber
     }
 
     this.dataService.retrievePrediction(requestBody).subscribe(
-      (data) => this.predictedNumber = data,
-      (err) => console.log(err),
-      () => console.log("Predicted #: " + this.predictedNumber)
+      (data:any) => console.log(data),
     );
     
     this.canvasWhiteboard.clearCanvas();

@@ -32,37 +32,41 @@ fs.readFile('./recognitionApp/trainingData.json','utf8', (err, data) => {
 });
 
 app.get('/pre_train',async function(req, res) {
-    networkModel.prepareInput(training_file);
-    res.send("Worked");
+    networkModel.trainUsingSet(training_file.training_set);
+    res.send("Using current data to train set");
 });
 
-app.post('/predict',async function(req, res) {
+app.post('/predict', async function(req, res) {
+    //Storing submitted data
     const bitMap = await imageDriver.processImage(imagePath); //Current Bitmap
-    const correctValue = req.body; //Expected Value 
-    //console.log(req.body.expectedValue);
-    const prepData = {data: bitMap, expected: correctValue.expectedValue}
+    const correctValue = req.body.expectedValue.toString(); //Expected Value
+    var collectedData = {"data": bitMap, "expected": correctValue};
 
-    training_file.training_set.push(prepData); //Adding onto trainingData JSON
+    console.log("Correct BitMap #: " + bitMap);
+    console.log("Correct Value #: " + correctValue);
 
-    //console.log(training_file.training_set);
-    await fs.writeFile('./recognitionApp/trainingData.json',JSON.stringify(training_file), 'utf8', (err, data) => {console.log("Worked")}); //Adds data to the JSON file
-    
-    fs.unlink(imagePath,(success)=> console.log(prepData)); //Deletes file
-    res.send("Predicted Score");
+    training_file.training_set.push(collectedData); //Adding onto trainingData JSON
+
+    //Overwritting the olderfile with new set
+    fs.writeFile('./recognitionApp/trainingData.json',JSON.stringify(training_file), 'utf8', (err, data) => {console.log("Worked")}); //Adds data to the JSON file
+    fs.unlink(imagePath,(success)=> console.log("Deleted files"));  //Deleting unused image in download directory
+
+    const result = networkModel.predictData(bitMap,correctValue);
+    res.send(result);
 });
 
 app.get('/save', function (req, res) {
     networkModel.saveModel();
 });
 
-app.get('/testInput', function (req, res) {
+app.get('/inputInformation', function (req, res) {
     imageDriver.processImage(imagePath).then(result => {
         console.log(result);
         res.send("BitMap Size: " + result.length + "\n" + "--Check Console for BitMap--");
     });
 });
 
-app.get('/testNeuralNetwork', async function (req, res) {
+app.get('/verifyNeuralNetwork', async function (req, res) {
     //console.log(networkModel);
     visibleData = await networkModel;
     await console.log(visibleData);
