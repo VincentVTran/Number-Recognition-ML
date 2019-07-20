@@ -1,10 +1,14 @@
+# DISCLAIMER:
+
+The current application is currently functional. The only issue is the output such as prediction and error values will be displayed in the command prompt/terminal.
+
 ## Running the application
 
 Run angular application- `ng serve --open` <br>
 Run the neural network- `npm run ml` <br>
 Run both applications- `npm run start` <br>
 
-# MLRecognitionApp
+## MLRecognitionApp
 
 The application currently uses Angular framework for the front-end user interface and ExpressJS as the back-end stand-alone application. Tensorflow was the primary framework used to build the neural network.
 
