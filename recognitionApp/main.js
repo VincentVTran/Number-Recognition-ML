@@ -27,7 +27,13 @@ fs.readFile('./recognitionApp/trainingData.json','utf8', (err, data) => {
     } else {
         training_file = JSON.parse(data);
         console.log(training_file);
+        console.log("Amount of data inside of file: "+training_file.training_set.length);
     }
+});
+
+app.get('/pre_train',async function(req, res) {
+    networkModel.prepareInput(training_file);
+    res.send("Worked");
 });
 
 app.post('/predict',async function(req, res) {

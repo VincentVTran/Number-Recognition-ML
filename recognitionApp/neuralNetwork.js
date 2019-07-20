@@ -85,6 +85,20 @@ class neuralNetworkInstance {
         await console.log(response.history.loss[0]);
     }
 
+    async prepareInput(training_file){
+        const whole_data = training_file.training_set;
+        var x_set = [];
+        var y_set = [];
+        for(let i = 0;i<whole_data.length;i++){
+            x_set.push(whole_data[i].data); //Transferring data into a 2-dimensional array 
+            var tempY = [parseInt(whole_data[i].expected)]; //Must store single digit expected value to an array (one test case)
+            y_set.push(tempY);
+        }
+        this.TensorX = tf.tensor2d(x_set);
+        this.TensorY = tf.tensor2d(y_set)
+        this.TensorX.print();
+        this.TensorY.print();
+    }
     saveModel(){
         this.network.save('file://./saved-model');
         console.log("Neural Network saved")
