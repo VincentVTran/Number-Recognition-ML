@@ -8,5 +8,23 @@
 }
 
 #submitButton {
-    margin-top: 50px;
+    margin-left: 20px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    height: 30px;
+    width: 100px;
+}
+
+.entryContainer {
+    justify-content: center;
+    margin: 0 auto;
+    width: 800px;
+    text-align: center;
+}
+
+.entryContainer div{
+    border-bottom: 1px solid black;
+}
+#underline_text{
+    text-decoration: underline;
 }

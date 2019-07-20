@@ -20,7 +20,31 @@
                         (onUndo)="onCanvasUndo($event)"
                         (onRedo)="onCanvasRedo($event)">
     </canvas-whiteboard>
-    <button mat-raised-button color="accent" id='submitButton' (click)='onSubmit()'>Predict</button>
+</div>
+<div class = 'entryContainer'>
+    <div [hidden]= buttonHidden>
+        <button mat-raised-button color="accent" id='submitButton' (click)='onSubmit()'>Predict</button>
+    </div>
+    
+    <div [hidden]=correctHidden>
+        <h2>Predicted Value: {{predictedNumber}}</h2>
+        <h3 id="underline_text">Correct Value</h3>
+        <mat-form-field>
+            <mat-select [(value)]="predictedNumber" placeholder="Select">
+                <mat-option value=0>0</mat-option>
+                <mat-option value=1>1</mat-option>
+                <mat-option value=2>2</mat-option>
+                <mat-option value=3>3</mat-option>
+                <mat-option value=4>4</mat-option>
+                <mat-option value=5>5</mat-option>
+                <mat-option value=6>6</mat-option>
+                <mat-option value=7>7</mat-option>
+                <mat-option value=8>8</mat-option>
+                <mat-option value=9>9</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <button mat-raised-button color="accent" id='submitButton' (click)='train()'>Correct</button>
+    </div>
 </div>
 
 
