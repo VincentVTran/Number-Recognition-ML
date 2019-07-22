@@ -66,19 +66,29 @@ class neuralNetworkInstance {
         this.network.add(secondLayer);
         this.network.add(output);
     
-        const learningRate = .5;
+        const learningRate = .7;
         const sgdOpt = tf.train.sgd(learningRate);
         const configOptimizer = {
             optimizer: sgdOpt,
             //loss: tf.losses.softmaxCrossEntropy, 
             loss: 'categoricalCrossentropy', //Categorical Cross Entropy = Finds the difference between two probability distribution rather than just subtracting (Mean Square Error)
+            //'categoricalCrossentropy'
         }
         this.network.compile(configOptimizer);
     }
     
     //--Method 2, Loading old network
-    loadPreviousData(filePath){
-        this.network = tf.loadLayersModel(filePath);
+    async loadPreviousData(filePath){
+        this.network = await tf.loadLayersModel(filePath);
+        const learningRate = .7;
+        const sgdOpt = tf.train.sgd(learningRate);
+        const configOptimizer = {
+            optimizer: sgdOpt,
+            //loss: tf.losses.softmaxCrossEntropy, 
+            loss: 'categoricalCrossentropy', //Categorical Cross Entropy = Finds the difference between two probability distribution rather than just subtracting (Mean Square Error)
+            //'categoricalCrossentropy'
+        }
+        this.network.compile(configOptimizer);
     }
 
     async prepareInput(training_set){ // training_set format [ {data: [], expected: ""} ]
@@ -91,6 +101,12 @@ class neuralNetworkInstance {
             var manipulatedX = whole_data[i].data.map(value => {
                 return value/255; //Scaling the x value
             });
+            //Makes sure there are non integer values in array
+            // manipulatedX.map(value => {
+            //     if(value !== 1){
+            //         console.log(value);
+            //     }
+            // });
             x_set.push(manipulatedX); //Transferring data into a 2-dimensional array 
 
             //Defines the output in a more formal way
@@ -105,10 +121,11 @@ class neuralNetworkInstance {
         console.log(this.TensorY.shape);
     }
 
-    predictData(x,y){
+    async predictData(x,y){
         const data = [{data: x, expected: y}] //Formatting to fit processing step
         this.prepareInput(data)
-        const response = this.network.predict(this.TensorX,this.TensorY);
+        //await this.network.fit(this.TensorX,this.TensorY);
+        const response = await this.network.predict(this.TensorX);
         console.log("Result Predicted: ");
         const index = response.argMax(1).dataSync()[0];
         console.log(index);

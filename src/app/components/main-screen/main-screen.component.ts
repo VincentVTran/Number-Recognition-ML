@@ -31,8 +31,15 @@ export class MainScreenComponent implements OnInit {
 
   pretrain(){
     this.dataService.trainingSet().subscribe();
+    this.buttonHidden = true;
+    setTimeout(() => this.buttonHidden = false, 20000);
   }
 
+  onSave(){
+    this.dataService.saveModel().subscribe();
+    this.buttonHidden = true;
+    setTimeout(() => this.buttonHidden = false, 5000);
+  }
   train(){
     let requestBody = {
       expectedValue : this.correctNumber

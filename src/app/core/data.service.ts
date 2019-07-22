@@ -19,4 +19,9 @@ export class DataService {
     console.log("Sending expected number; Retrieving predicted number")
     return this.http.get<any>(this.baseURL+"/pre_train");
   }
+
+  saveModel():Observable<any>{
+    console.log("Sending expected number; Retrieving predicted number")
+    return this.http.get<any>(this.baseURL+"/save");
+  }
 }

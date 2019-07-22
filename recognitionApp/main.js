@@ -51,8 +51,9 @@ app.post('/predict', async function(req, res) {
     fs.writeFile('./recognitionApp/trainingData.json',JSON.stringify(training_file), 'utf8', (err, data) => {console.log("Worked")}); //Adds data to the JSON file
     fs.unlink(imagePath,(success)=> console.log("Deleted files"));  //Deleting unused image in download directory
 
-    const result = networkModel.predictData(bitMap,correctValue);
-    res.send(result);
+    const result = await networkModel.predictData(bitMap,correctValue);
+    // console.log("Result Data: " + result);
+    res.send(result.toString());
 });
 
 app.get('/save', function (req, res) {
