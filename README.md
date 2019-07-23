@@ -22,6 +22,7 @@ The application currently uses Angular for the front-end user interface and Expr
 - [x] Process the image.
 - [x] Convert into bitmap, then to a tensor.
 - [x] Configure the neural network with proper back-propogation settings.
+- [ ] Use MNIST dataset to train neural network.
 - [ ] Display loss value.
 - [ ] Add a progress bar to display epoch progression.
 - [ ] Add more training data into the JSON file.
