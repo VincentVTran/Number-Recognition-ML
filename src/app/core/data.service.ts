@@ -17,7 +17,7 @@ export class DataService {
 
   trainingSet():Observable<any>{
     console.log("Sending expected number; Retrieving predicted number")
-    return this.http.get<any>(this.baseURL+"/pre_train");
+    return this.http.get<any>(this.baseURL+"/testMNIST");
   }
 
   saveModel():Observable<any>{

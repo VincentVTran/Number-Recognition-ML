@@ -30,7 +30,7 @@ class neuralNetworkInstance {
     
         const firstLayer = tf.layers.dense({
             units: 16, //Completely random number
-            inputDim: 1024,
+            inputDim: 784, //1024
             activation: "sigmoid",
             useBias: true,
         });
@@ -66,12 +66,12 @@ class neuralNetworkInstance {
         this.network.add(secondLayer);
         this.network.add(output);
     
-        const learningRate = .7;
+        const learningRate = .4;
         const sgdOpt = tf.train.sgd(learningRate);
         const configOptimizer = {
             optimizer: sgdOpt,
-            //loss: tf.losses.softmaxCrossEntropy, 
-            loss: 'categoricalCrossentropy', //Categorical Cross Entropy = Finds the difference between two probability distribution rather than just subtracting (Mean Square Error)
+            loss: tf.losses.softmaxCrossEntropy, 
+            //loss: 'categoricalCrossentropy', //Categorical Cross Entropy = Finds the difference between two probability distribution rather than just subtracting (Mean Square Error)
             //'categoricalCrossentropy'
         }
         this.network.compile(configOptimizer);
@@ -80,7 +80,7 @@ class neuralNetworkInstance {
     //--Method 2, Loading old network
     async loadPreviousData(filePath){
         this.network = await tf.loadLayersModel(filePath);
-        const learningRate = .7;
+        const learningRate = .4;
         const sgdOpt = tf.train.sgd(learningRate);
         const configOptimizer = {
             optimizer: sgdOpt,
@@ -97,7 +97,7 @@ class neuralNetworkInstance {
         var x_set = [];
         var y_set = [];
         var y_list = ["0","1","2","3","4","5","6","7","8","9"];
-        for(let i = 0;i<whole_data.length;i++){ //Goes through the entire data set and stores each index into seperate test case
+        for(let i = 0;i<whole_data.length;i++){ //Goes through  the entire data set and stores each index into seperate test case
             var manipulatedX = whole_data[i].data.map(value => {
                 return value/255; //Scaling the x value
             });
@@ -135,8 +135,8 @@ class neuralNetworkInstance {
     async trainUsingSet(training_set){
         await this.prepareInput(training_set);
         const config = {
-            epochs: 4000,
-            validationSplit: .3, //10% of data will be used to calculate loss
+            epochs: 10,
+            validationSplit: .3, //30% of data will be used to calculate loss
             shuffle: true,
         }
         const result = await this.network.fit(this.TensorX,this.TensorY,config);

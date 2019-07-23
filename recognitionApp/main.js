@@ -42,7 +42,7 @@ app.post('/predict', async function(req, res) {
     const correctValue = req.body.expectedValue.toString(); //Expected Value
     var collectedData = {"data": bitMap, "expected": correctValue};
 
-    console.log("Correct BitMap #: " + bitMap);
+    console.log("BitMap #: " + bitMap);
     console.log("Correct Value #: " + correctValue);
 
     training_file.training_set.push(collectedData); //Adding onto trainingData JSON
@@ -81,6 +81,12 @@ app.get('/testManipulationOfInstance', function (req, res) {
     console.log("Previous Global Variable Value: "+networkModel.testNum);
     networkModel.testNum = Math.random();
     console.log("New Global Variable Value: "+networkModel.testNum);
+    res.send('Testing manipulation of class variable in console');
+});
+
+app.get('/testMNIST', async function (req, res) {
+    const data = await imageDriver.processMNIST();
+    await networkModel.trainUsingSet(data.training_set);
     res.send('Testing manipulation of class variable in console');
 });
 
