@@ -1,6 +1,6 @@
 # DISCLAIMER:
 
-The current application is currently functional. The only issue is the output such as prediction and error values will be displayed in the command prompt/terminal.
+The current application is currently functional. The only issue is the output such as prediction and error values will be displayed in the command prompt/terminal. Currently predicting 0 and 2 85% of the time.
 
 ## Running the application
 
