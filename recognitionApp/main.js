@@ -24,7 +24,7 @@ var training_file = {
 //Stores current data
 var currentData = {
     bitMap: [],
-    expectedValue: ""
+    expected: ""
 }
 
 //Loading dataset
@@ -59,10 +59,11 @@ app.post('/correct', async function(req, res) {
     const correctValue = req.body.expectedValue.toString(); //Expected Value
     currentData.expected = correctValue; //Adding into a global variable
 
-    console.log("Correct Value #: " + correctValue);
+    //console.log("Correct Value #: " + correctValue);
 
     training_file.training_set.push(currentData); //Adding onto trainingData JSON
     console.log(currentData);
+
     //Overwritting the olderfile with new set
     fs.writeFile('./recognitionApp/trainingData.json',JSON.stringify(training_file), 'utf8', (err, data) => {console.log("Worked")}); //Adds data to the JSON file
     fs.unlink(imagePath,(success)=> console.log("Deleted files"));  //Deleting unused image in download directory
