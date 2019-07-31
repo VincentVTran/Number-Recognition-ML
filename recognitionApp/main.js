@@ -21,6 +21,13 @@ var training_file = {
     training_set : []
 };
 
+//Stores current data
+var currentData = {
+    bitMap: [],
+    expectedValue: ""
+}
+
+//Loading dataset
 fs.readFile('./recognitionApp/trainingData.json','utf8', (err, data) => {
     if (err){
         console.log(err);
@@ -36,40 +43,37 @@ app.get('/pre-train',async function(req, res) {
     res.send("Using current data to train set");
 });
 
-app.post('/predict', async function(req, res) {
-    //Storing submitted data
+app.get('/predict', async function(req, res) {
+    await sleep(500);
     const bitMap = await imageDriver.processImage(imagePath); //Current Bitmap
-    const correctValue = req.body.expectedValue.toString(); //Expected Value
-    var collectedData = {"data": bitMap, "expected": correctValue};
+    currentData.bitMap = bitMap;//Adding into a global variable
 
-    console.log("BitMap #: " + bitMap);
+    fs.unlink(imagePath,(success)=> console.log("Deleted files"));  //Deleting unused image in download directory
+
+    const result = await networkModel.predictData(bitMap);
+    console.log("Result Data: " + result);
+    res.send(result.toString());
+});
+
+app.post('/correct', async function(req, res) {
+    const correctValue = req.body.expectedValue.toString(); //Expected Value
+    currentData.expected = correctValue; //Adding into a global variable
+
     console.log("Correct Value #: " + correctValue);
 
-    training_file.training_set.push(collectedData); //Adding onto trainingData JSON
-
+    training_file.training_set.push(currentData); //Adding onto trainingData JSON
+    console.log(currentData);
     //Overwritting the olderfile with new set
     fs.writeFile('./recognitionApp/trainingData.json',JSON.stringify(training_file), 'utf8', (err, data) => {console.log("Worked")}); //Adds data to the JSON file
     fs.unlink(imagePath,(success)=> console.log("Deleted files"));  //Deleting unused image in download directory
 
-    const result = await networkModel.predictData(bitMap,correctValue);
-    // console.log("Result Data: " + result);
-    res.send(result.toString());
+    res.send("Completed prediction");
 });
-
-// app.get('/predict', async function(req, res) {
-//     const bitMap = await imageDriver.processImage(imagePath); //Current Bitmap
-//     const result = await networkModel.predictData(bitMap,correctValue);
-//     fs.unlink(imagePath,(success)=> console.log("Deleted files"));  //Deleting unused image in download directory
-
-//     // console.log("Result Data: " + result);
-//     res.send(result.toString());
-// });
-
 
 app.get('/save', function (req, res) {
     networkModel.saveModel();
 });
-
+//_________________________________Verification Mappings_____________________________________________________
 app.get('/inputInformation', function (req, res) {
     imageDriver.processImage(imagePath).then(result => {
         //console.log(result);
@@ -107,6 +111,11 @@ app.get('/testMNIST', async function (req, res) {
     res.send('Testing manipulation of class variable in console');
 });
 
+function sleep(ms){
+    return new Promise(resolve=>{
+        setTimeout(resolve,ms)
+    })
+}
 app.listen(port, () => console.log(`Neural Network listening on port ${port}!`));
 
 

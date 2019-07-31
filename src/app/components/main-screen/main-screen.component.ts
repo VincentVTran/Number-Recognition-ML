@@ -24,6 +24,8 @@ export class MainScreenComponent implements OnInit {
 
   onSubmit(){
     this.canvasWhiteboard.downloadCanvasImage("image/png","","result");
+    this.dataService.retrievePrediction().subscribe(data => this.predictedNumber = data);
+    
     this.buttonHidden = true;
     this.correctHidden = false;
     //console.log(this.canvasWhiteboard.context);
@@ -41,12 +43,12 @@ export class MainScreenComponent implements OnInit {
     setTimeout(() => this.buttonHidden = false, 5000);
   }
   
-  train() {
+  correctPrediction() {
     let requestBody = {
       expectedValue : this.correctNumber
     }
 
-    this.dataService.retrievePrediction(requestBody).subscribe(
+    this.dataService.sendCorrections(requestBody).subscribe(
       (data:any) => console.log(data),
     );
     
