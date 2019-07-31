@@ -107,12 +107,6 @@ class neuralNetworkInstance {
                     return value/255; //Scaling the x value
                 }
             });
-            //Makes sure there are non integer values in array
-            // manipulatedX.map(value => {
-            //     if(value !== 1){
-            //         console.log(value);
-            //     }
-            // });
             x_set.push(manipulatedX); //Transferring data into a 2-dimensional array 
 
             //Defines the output in a more formal way

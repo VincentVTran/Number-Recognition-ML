@@ -23,7 +23,7 @@ var training_file = {
 
 //Stores current data
 var currentData = {
-    bitMap: [],
+    data: [],
     expected: ""
 }
 
@@ -46,7 +46,7 @@ app.get('/pre-train',async function(req, res) {
 app.get('/predict', async function(req, res) {
     await sleep(500);
     const bitMap = await imageDriver.processImage(imagePath); //Current Bitmap
-    currentData.bitMap = bitMap;//Adding into a global variable
+    currentData.data = bitMap;//Adding into a global variable
 
     fs.unlink(imagePath,(success)=> console.log("Deleted files"));  //Deleting unused image in download directory
 
