@@ -6,22 +6,26 @@ var mnist = require('mnist');
 var processImage = async function(imageURL) {
     const imagePath = imageURL; //Image processing
     var dataBitmap = [];
-    await jimp.read(imagePath).then(result => {
-        result.quality(99);
-        result.grayscale(); //Current 255 = white / 0 = black 
-        result.invert(); //Now 255 = black /  0 = white 
-        result.resize(14,14);
-        dataBitmap = result.bitmap.data.toJSON().data; 
-        result.write("./processedImage");
-        
-        //result.write('processedData.jpg'); //Saves image
-
-        // for(let i of dataInput){
-        //     if(i !== 255){
-        //         console .log(i);
-        //     }
-        // }
-    });
+    var image= await jimp.read(imagePath);
+    await image.quality(99);
+    await image.invert();
+    await image.resize(16,16);
+    const temp_dataBitmap = await image.bitmap.data.toJSON().data; 
+    var counter = 0;
+    for(let i = 0;i<temp_dataBitmap.length;i++){
+        //dataBitmap.push(temp_dataBitmap[i]);
+        counter = i+1;
+        if(counter%4 == 0){
+            counter = 0;
+        }
+        else {
+            dataBitmap.push(temp_dataBitmap[i]);
+        }
+    }
+    for(let x =0;x<16;x++){
+        dataBitmap.push(0);
+    }
+    await image.write("./processedImage");
     return dataBitmap;
 }
 
@@ -47,7 +51,6 @@ var processMNIST = async function() {
     }
     console.log(dataSet.training_set);
     return dataSet;
-
 }
 
 module.exports.processImage = processImage;

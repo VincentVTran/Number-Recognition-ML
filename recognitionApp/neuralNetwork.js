@@ -70,7 +70,7 @@ class neuralNetworkInstance {
         const sgdOpt = tf.train.sgd(learningRate);
         const configOptimizer = {
             optimizer: sgdOpt,
-            loss: tf.losses.softmaxCrossEntropy, 
+            loss: 'categoricalCrossentropy', 
             //loss: 'categoricalCrossentropy', //Categorical Cross Entropy = Finds the difference between two probability distribution rather than just subtracting (Mean Square Error)
             //'categoricalCrossentropy'
         }
@@ -99,7 +99,12 @@ class neuralNetworkInstance {
         var y_list = ["0","1","2","3","4","5","6","7","8","9"];
         for(let i = 0;i<whole_data.length;i++){ //Goes through  the entire data set and stores each index into seperate test case
             var manipulatedX = whole_data[i].data.map(value => {
-                return value/255; //Scaling the x value
+                if(value === 1){
+                    return 0;
+                }
+                else {
+                    return value/255; //Scaling the x value
+                }
             });
             //Makes sure there are non integer values in array
             // manipulatedX.map(value => {
@@ -135,7 +140,7 @@ class neuralNetworkInstance {
     async trainUsingSet(training_set){
         await this.prepareInput(training_set);
         const config = {
-            epochs: 10,
+            epochs: 1000,
             validationSplit: .3, //30% of data will be used to calculate loss
             shuffle: true,
         }

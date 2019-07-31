@@ -32,7 +32,7 @@ export class MainScreenComponent implements OnInit {
   pretrain(){
     this.dataService.trainingSet().subscribe();
     this.buttonHidden = true;
-    setTimeout(() => this.buttonHidden = false, 20000);
+    setTimeout(() => this.buttonHidden = false, 5000);
   }
 
   onSave(){

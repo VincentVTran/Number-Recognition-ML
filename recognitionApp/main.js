@@ -31,7 +31,7 @@ fs.readFile('./recognitionApp/trainingData.json','utf8', (err, data) => {
     }
 });
 
-app.get('/pre_train',async function(req, res) {
+app.get('/pre-train',async function(req, res) {
     networkModel.trainUsingSet(training_file.training_set);
     res.send("Using current data to train set");
 });
@@ -62,8 +62,11 @@ app.get('/save', function (req, res) {
 
 app.get('/inputInformation', function (req, res) {
     imageDriver.processImage(imagePath).then(result => {
-        console.log(result);
-        res.send("BitMap Size: " + result.length + "\n" + "--Check Console for BitMap--");
+        //console.log(result);
+        for(let i = 0;i<result.length;i++){
+            console.log(result[i]);
+        }
+        // res.send("BitMap Size: " + result.length + "\n" + "--Check Console for BitMap--");
     });
 });
 
@@ -86,6 +89,10 @@ app.get('/testManipulationOfInstance', function (req, res) {
 
 app.get('/testMNIST', async function (req, res) {
     const data = await imageDriver.processMNIST();
+    // const tempDatadata = data.training_set[1].data;
+    // for(let i = 0;i<tempDatadata.length;i++){
+    //     console.log(tempDatadata[i]);
+    // }
     await networkModel.trainUsingSet(data.training_set);
     res.send('Testing manipulation of class variable in console');
 });
