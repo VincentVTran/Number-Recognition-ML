@@ -23,7 +23,7 @@ export class MainScreenComponent implements OnInit {
   }
 
   onSubmit(){
-    this.canvasWhiteboard.downloadCanvasImage("image/png","","result")
+    this.canvasWhiteboard.downloadCanvasImage("image/png","","result");
     this.buttonHidden = true;
     this.correctHidden = false;
     //console.log(this.canvasWhiteboard.context);
@@ -40,7 +40,8 @@ export class MainScreenComponent implements OnInit {
     this.buttonHidden = true;
     setTimeout(() => this.buttonHidden = false, 5000);
   }
-  train(){
+  
+  train() {
     let requestBody = {
       expectedValue : this.correctNumber
     }

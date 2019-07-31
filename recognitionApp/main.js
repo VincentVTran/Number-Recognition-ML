@@ -56,6 +56,16 @@ app.post('/predict', async function(req, res) {
     res.send(result.toString());
 });
 
+// app.get('/predict', async function(req, res) {
+//     const bitMap = await imageDriver.processImage(imagePath); //Current Bitmap
+//     const result = await networkModel.predictData(bitMap,correctValue);
+//     fs.unlink(imagePath,(success)=> console.log("Deleted files"));  //Deleting unused image in download directory
+
+//     // console.log("Result Data: " + result);
+//     res.send(result.toString());
+// });
+
+
 app.get('/save', function (req, res) {
     networkModel.saveModel();
 });

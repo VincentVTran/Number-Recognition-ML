@@ -91,12 +91,46 @@ class neuralNetworkInstance {
         this.network.compile(configOptimizer);
     }
 
+    //Prepares data for fitting
     async prepareInput(training_set){ // training_set format [ {data: [], expected: ""} ]
         //Converting data into 2D array; Each inner array is one test case
         const whole_data = training_set;
         var x_set = [];
         var y_set = [];
         var y_list = ["0","1","2","3","4","5","6","7","8","9"];
+        for(let i = 0;i<whole_data.length;i++){ //Goes through  the entire data set and stores each index into seperate test case
+            var manipulatedX = whole_data[i].data.map(value => {
+                if(value === 1){
+                    return 0;
+                }
+                else {
+                    return value/255; //Scaling the x value
+                }
+            });
+            //Makes sure there are non integer values in array
+            // manipulatedX.map(value => {
+            //     if(value !== 1){
+            //         console.log(value);
+            //     }
+            // });
+            x_set.push(manipulatedX); //Transferring data into a 2-dimensional array 
+
+            //Defines the output in a more formal way
+            y_set.push(y_list.indexOf(whole_data[i].expected));
+        }
+        //Converts into tensor
+        this.TensorX = tf.tensor2d(x_set);
+        this.TensorY = tf.oneHot(y_set,10); //Standardizes the output data by creating a new array of 0s and 1s {Ex: [index of 3 = 3rd position of 10 items] 3 = [0,0,0,1,0,0,0,0,0,0,0]
+        this.TensorX.print();
+        this.TensorY.print();
+        console.log(this.TensorX.shape); // [(Number of test cases),(Number of items within test case)]
+        console.log(this.TensorY.shape);
+    }
+
+    async prepareInputPrediction(x_value){ // training_set format [ {data: [], expected: ""} ]
+        //Converting data into 2D array; Each inner array is one test case
+        const whole_data = training_set;
+        var x_set = [];
         for(let i = 0;i<whole_data.length;i++){ //Goes through  the entire data set and stores each index into seperate test case
             var manipulatedX = whole_data[i].data.map(value => {
                 if(value === 1){
