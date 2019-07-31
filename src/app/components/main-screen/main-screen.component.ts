@@ -27,9 +27,9 @@ export class MainScreenComponent implements OnInit {
     this.dataService.retrievePrediction().subscribe(data => this.predictedNumber = data);
     
     this.buttonHidden = true;
-    setTime(()=> {
+    setTimeout(()=> {
       this.correctHidden = false;
-    },1000);
+    },600);
     
     //console.log(this.canvasWhiteboard.context);
   }
