@@ -47,7 +47,7 @@ app.get('/pre-train',async function(req, res) {
 });
 
 app.get('/predict', async function(req, res) {
-    await sleep(300); //Waiting for file to download
+    await sleep(700); //Waiting for file to download
     const bitMap = await imageDriver.processImage(imagePath); //Current Bitmap
     currentData.data = bitMap;//Adding into a global variable
 

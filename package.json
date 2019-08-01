@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ml": "node ./recognitionApp/main.js",
-    "NumberClassification": "concurrently \"ng serve --open\" \"node ./recognitionApp/main.js\"",
+    "NumberClassification": "npm install && concurrently \"ng serve --open\" \"node ./recognitionApp/main.js\"",
     "build": "ng build",
     "lint": "ng lint"
   },
