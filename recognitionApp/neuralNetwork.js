@@ -3,7 +3,6 @@ const fs = require("fs");
 
 class neuralNetworkInstance {
     //private Network network;
-
     constructor(){
         this.InitializingProperModel();
         this.testNum = 4;
@@ -92,7 +91,7 @@ class neuralNetworkInstance {
     }
 
     //Prepares data for fitting
-    async prepareInput(training_set){ // training_set format [ {data: [], expected: ""} ]
+    async prepareTrainingInput(training_set){ // training_set format [ {data: [], expected: ""} ]
         //Converting data into 2D array; Each inner array is one test case
         const whole_data = training_set;
         var x_set = [];
@@ -139,9 +138,9 @@ class neuralNetworkInstance {
     }
 
     async trainUsingSet(training_set){
-        await this.prepareInput(training_set);
+        await this.prepareTrainingInput(training_set);
         const config = {
-            epochs: 1000,
+            epochs: 500,
             validationSplit: .3, //30% of data will be used to calculate loss
             shuffle: true,
         }

@@ -10,18 +10,19 @@ var imageDriver = require('./processImage');
 var app = express();
 app.use(bodyParser.json());
 app.use(cors());
-//app.use(bodyParser.urlencoded({ extended: false }));
 const port = 3000;
 
 const networkModel = neuralNetwork.neuralNetworkInstance;
-//var imagePath = process.env.USERPROFILE + "/Downloads/result.png"; //Window Compatible
-var imagePath = process.env['HOME'] + "/Downloads/result.png"; //Mac OS
 
+var imagePath = process.env['HOME'] + "/Downloads/result.png"; //Image path
+//var imagePath = process.env.USERPROFILE + "/Downloads/result.png"; //Window Compatible
+
+//Training File global storage
 var training_file = {
     training_set : []
 };
 
-//Stores current data
+//Stores data currently on canvas
 var currentData = {
     data: [],
     expected: ""
@@ -73,8 +74,16 @@ app.post('/correct', async function(req, res) {
 
 app.get('/save', function (req, res) {
     networkModel.saveModel();
+
 });
-//_________________________________Verification Mappings_____________________________________________________
+
+function sleep(ms){
+    return new Promise(resolve=>{
+        setTimeout(resolve,ms)
+    })
+}
+
+//_________________________________Mappings for Verifying_____________________________________________________
 app.get('/inputInformation', function (req, res) {
     imageDriver.processImage(imagePath).then(result => {
         //console.log(result);
@@ -102,21 +111,6 @@ app.get('/testManipulationOfInstance', function (req, res) {
     res.send('Testing manipulation of class variable in console');
 });
 
-app.get('/testMNIST', async function (req, res) {
-    const data = await imageDriver.processMNIST();
-    // const tempDatadata = data.training_set[1].data;
-    // for(let i = 0;i<tempDatadata.length;i++){
-    //     console.log(tempDatadata[i]);
-    // }
-    await networkModel.trainUsingSet(data.training_set);
-    res.send('Testing manipulation of class variable in console');
-});
-
-function sleep(ms){
-    return new Promise(resolve=>{
-        setTimeout(resolve,ms)
-    })
-}
 app.listen(port, () => console.log(`Neural Network listening on port ${port}!`));
 
 
