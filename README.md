@@ -1,7 +1,3 @@
-# DISCLAIMER:
-
-The current application is currently functional. The only issue is the output such as prediction and error values will be displayed in the command prompt/terminal. Currently predicting 0 and 2 85% of the time.
-
 ## Running the application
 
 To run the application - `npm run NumberClassification` <br>
@@ -20,12 +16,11 @@ The application currently uses Angular for the front-end user interface and Expr
 - [x] Process the image.
 - [x] Convert into bitmap, then to a tensor.
 - [x] Configure the neural network with proper back-propogation settings.
-- [ ] Use MNIST dataset to train neural network.
-- [ ] Display loss value.
-- [ ] Add a progress bar to display epoch progression.
-- [ ] Add more training data into the JSON file.
-- [ ] Add a saving function to save the model.
-- [ ] Display the prediction in the angular webpage.
+- [x] Display loss value.
+- [ ] Add a progress bar to display epoch progression. (Maybe)
+- [x] Add more training data into the JSON file.
+- [x] Add a saving function to save the model.
+- [x] Display the prediction in the angular webpage.
 - [ ] Finish about page.
 
 
