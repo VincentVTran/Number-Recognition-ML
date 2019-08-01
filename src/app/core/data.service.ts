@@ -20,14 +20,19 @@ export class DataService {
     return this.http.get<any>(this.baseURL+"/predict");
   }
 
+  restart():Observable<any>{
+    console.log("Restarting network")
+    return this.http.get<any>(this.baseURL+"/restart");
+  }
+
   //Adding into a global variable
   trainingSet():Observable<any>{
-    console.log("Sending expected number; Retrieving predicted number")
+    console.log("Sending expected number")
     return this.http.get<any>(this.baseURL+"/pre-train");
   }
 
   saveModel():Observable<any>{
-    console.log("Sending expected number; Retrieving predicted number")
+    console.log("Saving Model")
     return this.http.get<any>(this.baseURL+"/save");
   }
 }

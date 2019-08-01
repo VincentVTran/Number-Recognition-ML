@@ -1,4 +1,5 @@
-import { Component, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit, ViewChild,} from '@angular/core';
+import { Router } from '@angular/router';
 import {CanvasWhiteboardComponent} from 'ng2-canvas-whiteboard';
 import { DataService } from '../../core/data.service';
 @Component({
@@ -16,7 +17,7 @@ export class MainScreenComponent implements OnInit {
   private correctHidden:boolean = true;
   private buttonHidden:boolean = false;
 
-  constructor(private dataService:DataService){ }
+  constructor(private dataService:DataService, private router:Router){ }
 
   ngOnInit(){
 
@@ -30,8 +31,13 @@ export class MainScreenComponent implements OnInit {
     setTimeout(()=> {
       this.correctHidden = false;
     },600);
-    
-    //console.log(this.canvasWhiteboard.context);
+  }
+
+  restartNetwork(){
+    this.dataService.restart().subscribe();
+    this.buttonHidden = true;
+    setTimeout(() => this.buttonHidden = false, 1000);
+    //this.router.navigate(['/canvas']);
   }
 
   pretrain(){
@@ -43,7 +49,7 @@ export class MainScreenComponent implements OnInit {
   onSave(){
     this.dataService.saveModel().subscribe();
     this.buttonHidden = true;
-    setTimeout(() => this.buttonHidden = false, 5000);
+    setTimeout(() => this.buttonHidden = false, 1000);
   }
   
   correctPrediction() {

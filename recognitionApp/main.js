@@ -1,9 +1,11 @@
-var express = require('express');
-var fs = require('fs');
+var express = require('express'); //Creates rest API
 var bodyParser = require('body-parser');
 var cors = require('cors');
 
-var neuralNetwork = require('./neuralNetwork');
+var fs = require('fs'); //Manages file
+var rimraf = require('rimraf');
+
+var neuralNetwork = require('./neuralNetwork'); //Used for neural network
 var imageDriver = require('./processImage');
 
 //ExpressJS Controller
@@ -12,7 +14,7 @@ app.use(bodyParser.json());
 app.use(cors());
 const port = 3000;
 
-const networkModel = neuralNetwork.neuralNetworkInstance;
+var networkModel = neuralNetwork.neuralNetworkInstance;
 
 var imagePath = process.env['HOME'] + "/Downloads/result.png"; //Image path
 //var imagePath = process.env.USERPROFILE + "/Downloads/result.png"; //Window Compatible
@@ -74,7 +76,14 @@ app.post('/correct', async function(req, res) {
 
 app.get('/save', function (req, res) {
     networkModel.saveModel();
+});
 
+app.get('/restart', async function (req, res) {
+    const savedModelPath = "./saved-model";
+    if(fs.existsSync(savedModelPath)){
+        await rimraf(savedModelPath,(error)=> console.log("Deleted saved model"));
+        network = await neuralNetwork.neuralNetworkInstance;
+    }
 });
 
 function sleep(ms){
