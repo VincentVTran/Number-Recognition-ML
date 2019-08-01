@@ -13,7 +13,7 @@ var processImage = async function(imageURL) {
     for(let i = 0;i<temp_dataBitmap.length;i++){
         //dataBitmap.push(temp_dataBitmap[i]);
         counter = i+1;
-        if(counter%4 == 0){
+        if(counter%4 == 0){ //Getting rid of bad pixels
             counter = 0;
         }
         else {
@@ -23,7 +23,7 @@ var processImage = async function(imageURL) {
     for(let x =0;x<16;x++){
         dataBitmap.push(0);
     }
-    await image.write("./processedImage");
+    await image.write("./processedImageExample");
     return dataBitmap;
 }
 

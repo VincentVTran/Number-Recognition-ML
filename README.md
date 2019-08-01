@@ -4,9 +4,7 @@ The current application is currently functional. The only issue is the output su
 
 ## Running the application
 
-Run angular application- `ng serve --open` <br>
-Run the neural network- `npm run ml` <br>
-Run both applications- `npm run start` <br>
+To run the application - `npm run NumberClassification` <br>
 
 ## MLRecognitionApp
 

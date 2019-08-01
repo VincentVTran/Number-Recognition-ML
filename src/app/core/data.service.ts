@@ -22,12 +22,12 @@ export class DataService {
 
   restart():Observable<any>{
     console.log("Restarting network")
-    return this.http.get<any>(this.baseURL+"/restart");
+    return this.http.get<any>(this.baseURL + "/restart");
   }
 
   //Adding into a global variable
   trainingSet():Observable<any>{
-    console.log("Sending expected number")
+    console.log("Training neural network")
     return this.http.get<any>(this.baseURL+"/pre-train");
   }
 

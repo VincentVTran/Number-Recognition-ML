@@ -13,6 +13,7 @@ export class MainScreenComponent implements OnInit {
  
   private predictedNumber:number = 0;
   private correctNumber:number = 0;
+  private alert:String = "";
 
   private correctHidden:boolean = true;
   private buttonHidden:boolean = false;
@@ -25,31 +26,29 @@ export class MainScreenComponent implements OnInit {
 
   onSubmit(){
     this.canvasWhiteboard.downloadCanvasImage("image/png","","result");
-    this.dataService.retrievePrediction().subscribe(data => this.predictedNumber = data);
-    
     this.buttonHidden = true;
-    setTimeout(()=> {
-      this.correctHidden = false;
-    },600);
-  }
-
-  restartNetwork(){
-    this.dataService.restart().subscribe();
-    this.buttonHidden = true;
-    setTimeout(() => this.buttonHidden = false, 1000);
-    //this.router.navigate(['/canvas']);
+    this.dataService.retrievePrediction().subscribe(data => {this.predictedNumber = data; this.correctHidden = false});
   }
 
   pretrain(){
-    this.dataService.trainingSet().subscribe();
+    this.alert = "Currently training (View terminal for training specs)";
     this.buttonHidden = true;
-    setTimeout(() => this.buttonHidden = false, 5000);
+    this.dataService.trainingSet().subscribe((data)=>{this.buttonHidden = false; this.alert = ""},(error)=>{console.log(error)});
   }
 
   onSave(){
     this.dataService.saveModel().subscribe();
     this.buttonHidden = true;
-    setTimeout(() => this.buttonHidden = false, 1000);
+    this.alert = "Saved model in folder (labeled as saved-model)"
+    setTimeout(() => {this.buttonHidden = false; this.alert = ""}, 1000);
+  }
+
+  restartNetwork(){
+    this.dataService.restart().subscribe();
+    this.buttonHidden = true;
+    this.alert = "Deleted model in folder, please restart the application"
+    setTimeout(() => {this.buttonHidden = false; this.alert = ""}, 1000);
+    //this.router.navigate(['/canvas']);
   }
   
   correctPrediction() {

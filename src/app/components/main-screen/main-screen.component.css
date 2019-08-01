@@ -14,7 +14,10 @@
     height: 30px;
     width: 100px;
 }
-
+#alertText {
+    color: rgb(199, 91, 181);
+    font-family: 'Courier New', Courier, monospace;
+}
 .entryContainer {
     justify-content: center;
     margin: 0 auto;

@@ -20,9 +20,10 @@
                         (onUndo)="onCanvasUndo($event)"
                         (onRedo)="onCanvasRedo($event)">
     </canvas-whiteboard>
-    
 </div>
+
 <div class = 'entryContainer'>
+    <h1 id='alertText'>{{alert}}</h1>
     <div [hidden]= buttonHidden>
         <button mat-raised-button color="accent" id='submitButton' (click)='pretrain()'>Train</button>
         <button mat-raised-button color="accent" id='submitButton' (click)='onSubmit()'>Predict</button>

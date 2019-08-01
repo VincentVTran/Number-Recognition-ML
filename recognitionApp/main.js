@@ -42,12 +42,12 @@ fs.readFile('./recognitionApp/trainingData.json','utf8', (err, data) => {
 });
 
 app.get('/pre-train',async function(req, res) {
-    networkModel.trainUsingSet(training_file.training_set);
-    res.send("Using current data to train set");
+    await networkModel.trainUsingSet(training_file.training_set);
+    await res.send({result: "Completed"});
 });
 
 app.get('/predict', async function(req, res) {
-    await sleep(500);
+    await sleep(300); //Waiting for file to download
     const bitMap = await imageDriver.processImage(imagePath); //Current Bitmap
     currentData.data = bitMap;//Adding into a global variable
 
@@ -55,7 +55,7 @@ app.get('/predict', async function(req, res) {
 
     const result = await networkModel.predictData(bitMap);
     console.log("Result Data: " + result);
-    res.send(result.toString());
+    await res.send(result.toString());
 });
 
 app.post('/correct', async function(req, res) {
