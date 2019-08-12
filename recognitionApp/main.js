@@ -5,7 +5,7 @@ var cors = require('cors');
 var fs = require('fs'); //Manages file
 var rimraf = require('rimraf');
 
-var neuralNetwork = require('./neuralNetwork'); //Used for neural network
+var { neuralNetworkInstance } = require('./neuralNetwork'); //Used for neural network
 var imageDriver = require('./processImage');
 
 //ExpressJS Controller
@@ -14,7 +14,7 @@ app.use(bodyParser.json());
 app.use(cors());
 const port = 3000;
 
-var networkModel = neuralNetwork.neuralNetworkInstance;
+var networkModel = new neuralNetworkInstance();
 
 var imagePath = process.env['HOME'] + "/Downloads/result.png"; //Image path
 //var imagePath = process.env.USERPROFILE + "/Downloads/result.png"; //Window Compatible
@@ -82,7 +82,10 @@ app.get('/restart', async function (req, res) {
     const savedModelPath = "./saved-model";
     if(fs.existsSync(savedModelPath)){
         await rimraf(savedModelPath,(error)=> console.log("Deleted saved model"));
-        network = await neuralNetwork.neuralNetworkInstance;
+        network = await new neuralNetworkInstance();
+    }
+    else{
+        network = await new neuralNetworkInstance();
     }
 });
 

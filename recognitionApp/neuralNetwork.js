@@ -157,4 +157,4 @@ class neuralNetworkInstance {
 
 
 
-module.exports.neuralNetworkInstance = new neuralNetworkInstance(); //Exporting an instance of this neural network
+module.exports.neuralNetworkInstance = neuralNetworkInstance; //Exporting an instance of this neural network
